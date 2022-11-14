@@ -1,0 +1,7 @@
+{
+  "name": "digital_dynamometer",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
