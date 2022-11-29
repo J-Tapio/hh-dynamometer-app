@@ -1,10 +1,16 @@
 import {
   IonContent,
   IonPage,
-  IonItem,
   IonLabel,
   IonList,
+  IonItem,
   IonText,
+  IonThumbnail,
+  IonCard,
+  IonCardTitle,
+  IonCardContent,
+  IonCardSubtitle,
+  IonCardHeader,
 } from "@ionic/react";
 import "./Pages.css";
 import "./About.css";
@@ -24,13 +30,28 @@ const possibleMeasurements = [
 ];
 
 function ProductCard() {
-  return (
+ /*  return (
     <div className="card product-card">
       <h2>Handheld dynamometer</h2>
       <div className="product-card-img">
         <p>Device image</p>
       </div>
     </div>
+  ); */
+  return (
+    <IonCard>
+      <img
+        alt="Handheld dynamometer"
+        src="https://ionicframework.com/docs/img/demos/card-media.png"
+      />
+      <IonCardHeader>
+        <IonCardSubtitle>Digital handheld dynamometer</IonCardSubtitle>
+        <IonCardTitle>
+          Assessment tool for Physiotherapists and Athlete trainers
+        </IonCardTitle>
+      </IonCardHeader>
+      <IonCardContent></IonCardContent>
+    </IonCard>
   );
 }
 
@@ -42,14 +63,31 @@ function About() {
           <h1>About</h1>
         </IonText>
         <ProductCard />
-        <IonList lines="none" className="card mmt-list">
-          <p className="mmt-list-title">Measurement examples</p>
-          {possibleMeasurements.map((measurement) => (
-            <IonItem key={measurement}>
-              <IonLabel>{measurement}</IonLabel>
-            </IonItem>
-          ))}
-        </IonList>
+        <IonCard>
+          <IonCardHeader>
+            <IonCardSubtitle>
+              You can create also your own measurements
+            </IonCardSubtitle>
+            <IonCardTitle>Common measurement examples</IonCardTitle>
+          </IonCardHeader>
+          <IonCardContent>
+            <IonList>
+              {possibleMeasurements.map((measurement) => (
+                <IonItem className="ion-justify-content-center">
+                  <IonThumbnail slot="start">
+                    <img
+                      alt={measurement}
+                      src={
+                        "https://ionicframework.com/docs/img/demos/thumbnail.svg"
+                      }
+                    />
+                  </IonThumbnail>
+                  <IonLabel>{measurement}</IonLabel>
+                </IonItem>
+              ))}
+            </IonList>
+          </IonCardContent>
+        </IonCard>
       </IonContent>
     </IonPage>
   );
