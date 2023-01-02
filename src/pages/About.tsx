@@ -43,6 +43,7 @@ function ProductCard() {
       <img
         alt="Handheld dynamometer"
         src="https://ionicframework.com/docs/img/demos/card-media.png"
+        style={{width: "100%", objectFit: "cover"}}
       />
       <IonCardHeader>
         <IonCardSubtitle>Digital handheld dynamometer</IonCardSubtitle>
@@ -73,7 +74,7 @@ function About() {
           <IonCardContent>
             <IonList>
               {possibleMeasurements.map((measurement) => (
-                <IonItem className="ion-justify-content-center">
+                <IonItem className="ion-justify-content-center" key={measurement}>
                   <IonThumbnail slot="start">
                     <img
                       alt={measurement}

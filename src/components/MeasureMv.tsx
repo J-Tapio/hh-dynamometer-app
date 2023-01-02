@@ -118,7 +118,7 @@ function MeasureMv({ setPlotData, setPlotMeasured }: MeasureMvProps) {
     };
 
     if (!address) {
-      BLE.scan([weightService], 5).subscribe(scanObserver);
+      BLE.scan([weightService], 30).subscribe(scanObserver);
     } else {
       BLE.connect(address).subscribe(connectObserver);
     }
