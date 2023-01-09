@@ -25,7 +25,7 @@ function Chart({ measurement }: { measurement: PlotData[] }) {
           domain={["dataMin", "dataMax"]}
           padding={{ bottom: 20 }}
         />
-        <XAxis dataKey={"name"} tickCount={measurement.length} minTickGap={1} />
+        <XAxis dataKey={"ms"} tickCount={measurement.length} minTickGap={1} />
       </LineChart>
     </ResponsiveContainer>
   );

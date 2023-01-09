@@ -44,7 +44,7 @@ function MeasureMv({ setPlotData, setPlotMeasured }: MeasureMvProps) {
             //setPlotData((prevArr) => [...prevArr, val.toFixed(2)]);
             setPlotData((prevPlotData) => [
               ...prevPlotData,
-              { name: measurementTime, mv: val.toFixed(2) },
+              { ms: measurementTime, mv: val.toFixed(2) },
             ]);
             setMeasurementTime((prevVal) => prevVal + 200);
           })

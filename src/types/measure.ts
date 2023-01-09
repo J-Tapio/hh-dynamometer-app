@@ -16,6 +16,6 @@ export type BLEObserver = {
 };
 
 export type PlotData = {
-  name: number;
+  ms: number;
   mv: string;
 };
