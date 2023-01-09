@@ -21,7 +21,7 @@ type MeasureMvProps = {
   setPlotData: React.Dispatch<React.SetStateAction<PlotData[]>>;
   setPlotMeasured: React.Dispatch<React.SetStateAction<boolean>>;
 };
-// Function used for testing purposes to see millivoltage measurements
+// Component used for testing purposes to see millivoltage measurements
 // Used before calibration
 function MeasureMv({ setPlotData, setPlotMeasured }: MeasureMvProps) {
   const [address, setAddress] = useState<string | null>(null);
@@ -85,7 +85,7 @@ function MeasureMv({ setPlotData, setPlotMeasured }: MeasureMvProps) {
 
   useEffect(() => {
     let scanObserver: BLEObserver = {
-      next(device): void {
+      next(device) {
         //console.log(device); //Device & Services info
         if (device.name === "HH-D") {
           setAddress((currAddr) =>
@@ -93,11 +93,11 @@ function MeasureMv({ setPlotData, setPlotMeasured }: MeasureMvProps) {
           );
         }
       },
-      error(e: any): void {
+      error(e: any) {
         console.error(e);
         setAddress(null);
       },
-      complete(): void {
+      complete() {
         console.log("Scan request complete");
       },
     };
@@ -105,7 +105,9 @@ function MeasureMv({ setPlotData, setPlotMeasured }: MeasureMvProps) {
     let connectObserver: BLEObserver = {
       next(device) {
         //console.log(device); //Device info
-        setConnected(true);
+        if (device.name === "HH-D") {
+          setConnected(true);
+        }
       },
       error(e: any) {
         //console.error(e);
