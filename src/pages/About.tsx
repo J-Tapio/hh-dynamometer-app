@@ -1,43 +1,20 @@
+// Ionic
 import {
   IonContent,
   IonPage,
-  IonLabel,
   IonList,
   IonItem,
-  IonText,
   IonThumbnail,
   IonCard,
   IonCardTitle,
   IonCardContent,
   IonCardSubtitle,
   IonCardHeader,
+  IonText,
 } from "@ionic/react";
-import "./Pages.css";
-import "./About.css";
-
-// Just to name a few examples
-const possibleMeasurements = [
-  "Shoulder Abduction",
-  "Shoulder Adduction",
-  "Shoulder Flexion",
-  "Shoulder Extension",
-  "Shoulder Internal Rotation",
-  "Shoulder External Rotation",
-  "Elbow Flexion (Biceps)",
-  "Elbow Extension (Triceps)",
-  "Knee Extension (Quadriceps)",
-  "Knee Flexion (Hamstrings)",
-];
+//============================================================================//
 
 function ProductCard() {
- /*  return (
-    <div className="card product-card">
-      <h2>Handheld dynamometer</h2>
-      <div className="product-card-img">
-        <p>Device image</p>
-      </div>
-    </div>
-  ); */
   return (
     <IonCard>
       <img
@@ -56,12 +33,28 @@ function ProductCard() {
   );
 }
 
+//============================================================================//
+
 function About() {
+  // Examples
+  const possibleMeasurements = [
+    "Shoulder Abduction",
+    "Shoulder Adduction",
+    "Shoulder Flexion",
+    "Shoulder Extension",
+    "Shoulder Internal Rotation",
+    "Shoulder External Rotation",
+    "Elbow Flexion (Biceps)",
+    "Elbow Extension (Triceps)",
+    "Knee Extension (Quadriceps)",
+    "Knee Flexion (Hamstrings)",
+  ];
+
   return (
     <IonPage>
-      <IonContent fullscreen className="ion-padding">
-        <IonText color="secondary">
-          <h1>About</h1>
+      <IonContent className="">
+        <IonText color="">
+          <h1 className="ion-text-center ion-padding">About</h1>
         </IonText>
         <ProductCard />
         <IonCard>
@@ -71,10 +64,13 @@ function About() {
             </IonCardSubtitle>
             <IonCardTitle>Common measurement examples</IonCardTitle>
           </IonCardHeader>
-          <IonCardContent>
-            <IonList>
+          <IonCardContent className="">
+            <IonList lines="none" className="ion-no-padding">
               {possibleMeasurements.map((measurement) => (
-                <IonItem className="ion-justify-content-center" key={measurement}>
+                <IonItem
+                  className="ion-padding"
+                  key={measurement}
+                >
                   <IonThumbnail slot="start">
                     <img
                       alt={measurement}
@@ -83,7 +79,7 @@ function About() {
                       }
                     />
                   </IonThumbnail>
-                  <IonLabel>{measurement}</IonLabel>
+                  <IonText>{measurement}</IonText>
                 </IonItem>
               ))}
             </IonList>

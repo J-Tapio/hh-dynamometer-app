@@ -7,6 +7,7 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
+  IonText,
   setupIonicReact,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
@@ -38,6 +39,8 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 
+import "./App.css";
+
 setupIonicReact();
 
 const App: React.FC = () => (
@@ -58,18 +61,18 @@ const App: React.FC = () => (
             <Redirect to="/about" />
           </Route>
         </IonRouterOutlet>
-        <IonTabBar slot="bottom">
+        <IonTabBar slot="bottom" className="ion-padding-vertical">
           <IonTabButton tab="about" href="/about">
             <IonIcon icon={informationCircleOutline} />
-            <IonLabel>About</IonLabel>
+            {/* <IonText>About</IonText> */}
           </IonTabButton>
           <IonTabButton tab="measure" href="/measure">
             <IonIcon icon={barbellOutline} />
-            <IonLabel>Measure</IonLabel>
+            {/* <IonText>Measure</IonText> */}
           </IonTabButton>
           <IonTabButton tab="records" href="/records">
             <IonIcon icon={bodyOutline} />
-            <IonLabel>Records</IonLabel>
+            {/* <IonText>Records</IonText> */}
           </IonTabButton>
         </IonTabBar>
       </IonTabs>

@@ -2,8 +2,11 @@
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis } from "recharts";
 // Types
 import { PlotData } from "../types/measure";
+//============================================================================//
 
 function Chart({ measurement }: { measurement: PlotData[] }) {
+  console.log(measurement);
+
   return (
     <ResponsiveContainer height={400} width={"100%"}>
       <LineChart

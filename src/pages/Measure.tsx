@@ -1,31 +1,45 @@
 import { useState } from "react";
 // Ionic
-import { IonPage, IonContent, IonText } from "@ionic/react";
-// Millivoltage test component
-import MeasureMv from "../components/MeasureMv";
+import {
+  IonPage,
+  IonContent,
+  IonText,
+} from "@ionic/react";
+// Components
+import MeasureMv from "../components/MeasureMv"; // Mv test component
+import Chart from "../components/Chart"; // Plot data
+import ToolRow from "../components/ToolRow";
+import ProfileSearch from "../components/ProfileSearch";
+import ProfileCreate from "../components/ProfileCreate";
 // Types
+import { RevealOptions, UserProfile } from "../types";
 import { PlotData } from "../types/measure";
-//Styles
-import "./Pages.css";
-// Chart for plotting data after measurement
-import Chart from "../components/Chart";
 //============================================================================//
 
+
 function Measure() {
+  //TODO: State for selected participant, hide toolrow when measuring
+  const [participant, setParticipant] = useState<UserProfile | null>(null);
+  const [reveal, setReveal] = useState<RevealOptions>(null);
   const [plotData, setPlotData] = useState<PlotData[]>([]);
   const [plotMeasured, setPlotMeasured] = useState<boolean>(false);
 
   return (
     <IonPage>
-      <IonContent fullscreen className="ion-padding">
-        <IonText color="secondary">
-          <h1>Measure</h1>
+      <IonContent className="">
+        <IonText color="">
+          <h1 className="ion-text-center ion-padding">Measure</h1>
         </IonText>
-        <MeasureMv
-          setPlotData={setPlotData}
-          setPlotMeasured={setPlotMeasured}
-        />
+        {participant && (
+          <MeasureMv
+            setPlotData={setPlotData}
+            setPlotMeasured={setPlotMeasured}
+          />
+        )}
         {plotData && plotMeasured && <Chart measurement={plotData} />}
+        {reveal === "search" && <ProfileSearch />}
+        {reveal === "add" && <ProfileCreate />}
+        <ToolRow setReveal={setReveal} />
       </IonContent>
     </IonPage>
   );

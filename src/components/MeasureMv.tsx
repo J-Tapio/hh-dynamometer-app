@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 // Ionic
 import {
   IonText,
@@ -12,9 +12,6 @@ import {
 import { BLE } from "@awesome-cordova-plugins/ble";
 // Types
 import { BLEObserver, PlotData } from "../types/measure";
-//Styles
-import "../pages/Pages.css";
-import "../pages/Measure.css";
 //============================================================================//
 
 type MeasureMvProps = {
@@ -136,13 +133,13 @@ function MeasureMv({ setPlotData, setPlotMeasured }: MeasureMvProps) {
   }, [startMeasure, measureW]);
 
   return (
-    <React.Fragment>
+    <Fragment>
       {!address && !connected && (
         <IonGrid>
           <IonRow>
-            <IonCol size="8" className="ion-align-self-center">
+            <IonCol size="6" className="ion-align-self-center">
               <IonText>
-                <h5>Connecting with device...</h5>
+                <h3>Connecting with device...</h3>
               </IonText>
             </IonCol>
             <IonCol size="4" className="ion-align-self-center">
@@ -152,7 +149,7 @@ function MeasureMv({ setPlotData, setPlotMeasured }: MeasureMvProps) {
         </IonGrid>
       )}
       {address && connected && (
-        <React.Fragment>
+        <Fragment>
           <IonText color="success">
             <h4>{"Millivoltage: " + weight}</h4>
           </IonText>
@@ -161,7 +158,7 @@ function MeasureMv({ setPlotData, setPlotMeasured }: MeasureMvProps) {
             <h5>{"Connected: " + connected}</h5>
             <h5>{"Measure: " + startMeasure}</h5>
           </IonText>
-        </React.Fragment>
+        </Fragment>
       )}
       <IonGrid fixed={true}>
         <IonRow>
@@ -190,7 +187,7 @@ function MeasureMv({ setPlotData, setPlotMeasured }: MeasureMvProps) {
           </IonCol>
         </IonRow>
       </IonGrid>
-    </React.Fragment>
+    </Fragment>
   );
 }
 

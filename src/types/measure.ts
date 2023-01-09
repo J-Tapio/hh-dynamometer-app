@@ -1,5 +1,5 @@
 //TODO: Define types for next and error function parameters
-// Not being defined within BLE package
+// Not defined within BLE package/plugin
 
 type ScanData = {
   name: string;
