@@ -65,7 +65,7 @@ function About() {
             <IonCardTitle>Common measurement examples</IonCardTitle>
           </IonCardHeader>
           <IonCardContent className="">
-            <IonList lines="none" className="ion-no-padding">
+            <IonList lines="none" className="ion-no-padding" style={{borderRadius: "10px"}}>
               {possibleMeasurements.map((measurement) => (
                 <IonItem
                   className="ion-padding"

@@ -30,12 +30,10 @@ function Measure() {
         <IonText color="">
           <h1 className="ion-text-center ion-padding">Measure</h1>
         </IonText>
-        {participant && (
-          <MeasureMv
-            setPlotData={setPlotData}
-            setPlotMeasured={setPlotMeasured}
-          />
-        )}
+        <MeasureMv
+          setPlotData={setPlotData}
+          setPlotMeasured={setPlotMeasured}
+        />
         {plotData && plotMeasured && <Chart measurement={plotData} />}
         {reveal === "search" && <ProfileSearch />}
         {reveal === "add" && <ProfileCreate />}

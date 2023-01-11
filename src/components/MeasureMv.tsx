@@ -55,8 +55,7 @@ function MeasureMv({ setPlotData, setPlotMeasured }: MeasureMvProps) {
 
   function sendCmd(address: string, startMeasure: boolean) {
     let command = new Int8Array([startMeasure ? 1 : 0]).buffer;
-    BLE.write(address, weightService, commandCharacteristic, command)
-    .catch(
+    BLE.write(address, weightService, commandCharacteristic, command).catch(
       (err) => {
         console.error(err);
       }
@@ -135,7 +134,7 @@ function MeasureMv({ setPlotData, setPlotMeasured }: MeasureMvProps) {
   return (
     <Fragment>
       {!address && !connected && (
-        <IonGrid>
+        <IonGrid fixed={true}>
           <IonRow>
             <IonCol size="6" className="ion-align-self-center">
               <IonText>
@@ -150,43 +149,49 @@ function MeasureMv({ setPlotData, setPlotMeasured }: MeasureMvProps) {
       )}
       {address && connected && (
         <Fragment>
-          <IonText color="success">
-            <h4>{"Millivoltage: " + weight}</h4>
-          </IonText>
-          <IonText>
-            <h5>{"Address: " + address}</h5>
-            <h5>{"Connected: " + connected}</h5>
-            <h5>{"Measure: " + startMeasure}</h5>
-          </IonText>
+          <IonGrid>
+            <IonRow>
+              <IonCol>
+                <IonText color="success">
+                  <h4>{"Millivoltage: " + weight}</h4>
+                </IonText>
+                <IonText>
+                  <h5>{"Device Address: " + address}</h5>
+                  <h5>{"Connected: " + connected}</h5>
+                  <h5>{"Measure: " + startMeasure}</h5>
+                </IonText>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+          <IonGrid fixed={true}>
+            <IonRow>
+              <IonCol size={"5"}>
+                <IonButton
+                  color="tertiary"
+                  //size="large"
+                  disabled={address && connected ? false : true}
+                  style={{ width: "100%" }}
+                  onClick={handleStart}
+                >
+                  Start
+                </IonButton>
+              </IonCol>
+              <IonCol></IonCol>
+              <IonCol size={"5"}>
+                <IonButton
+                  color="danger"
+                  //size="large"
+                  disabled={address && connected ? false : true}
+                  style={{ width: "100%" }}
+                  onClick={handleStop}
+                >
+                  Stop
+                </IonButton>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
         </Fragment>
       )}
-      <IonGrid fixed={true}>
-        <IonRow>
-          <IonCol size={"5"}>
-            <IonButton
-              color="primary"
-              //size="large"
-              disabled={address && connected ? false : true}
-              style={{ width: "100%" }}
-              onClick={handleStart}
-            >
-              Start
-            </IonButton>
-          </IonCol>
-          <IonCol></IonCol>
-          <IonCol size={"5"}>
-            <IonButton
-              color="danger"
-              //size="large"
-              disabled={address && connected ? false : true}
-              style={{ width: "100%" }}
-              onClick={handleStop}
-            >
-              Stop
-            </IonButton>
-          </IonCol>
-        </IonRow>
-      </IonGrid>
     </Fragment>
   );
 }

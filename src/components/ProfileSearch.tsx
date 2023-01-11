@@ -1,6 +1,16 @@
 import { Fragment, useState } from "react";
 // Ionic
-import { IonSearchbar, IonList, IonItem, IonText } from "@ionic/react";
+import {
+  IonSearchbar,
+  IonList,
+  IonItem,
+  IonText,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
+} from "@ionic/react";
 //============================================================================//
 const exampleParticipants = [
   "Davis",
@@ -29,21 +39,32 @@ function ProfileSearch() {
   }
 
   return (
-    <Fragment>
-      <IonSearchbar
-        showCancelButton="focus"
-        placeholder="Search for participant"
-        debounce={200}
-        onIonChange={(ev) => handleChange(ev)}
-      />
-      <IonList lines="none">
-        {results.map((result) => (
-          <IonItem key={result}>
-            <IonText>{result}</IonText>
-          </IonItem>
-        ))}
-      </IonList>
-    </Fragment>
+    <IonCard>
+      <IonCardHeader>
+        <IonCardSubtitle>Profile Search</IonCardSubtitle>
+        <IonCardTitle>Search by name</IonCardTitle>
+      </IonCardHeader>
+      <IonCardContent>
+        <IonSearchbar
+          className="ion-no-padding"
+          showCancelButton="focus"
+          placeholder=""
+          debounce={200}
+          onIonChange={(ev) => handleChange(ev)}
+        />
+        <IonList
+          lines="none"
+          className="ion-no-padding"
+          style={{ borderRadius: "10px" }}
+        >
+          {results.map((result) => (
+            <IonItem key={result}>
+              <IonText>{result}</IonText>
+            </IonItem>
+          ))}
+        </IonList>
+      </IonCardContent>
+    </IonCard>
   );
 }
 
