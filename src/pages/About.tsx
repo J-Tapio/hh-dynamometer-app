@@ -20,13 +20,13 @@ function ProductCard() {
       <img
         alt="Handheld dynamometer"
         src="https://ionicframework.com/docs/img/demos/card-media.png"
-        style={{width: "100%", objectFit: "cover"}}
+        style={{ width: "100%", objectFit: "cover" }}
       />
       <IonCardHeader>
-        <IonCardSubtitle>Digital handheld dynamometer</IonCardSubtitle>
-        <IonCardTitle>
-          Assessment tool for Physiotherapists and Athlete trainers
-        </IonCardTitle>
+        <IonCardTitle>Digital handheld dynamometer</IonCardTitle>
+        <IonCardSubtitle>
+          Assessment tool for Physiotherapists and Athlete trainers{" "}
+        </IonCardSubtitle>
       </IonCardHeader>
       <IonCardContent></IonCardContent>
     </IonCard>
@@ -59,13 +59,13 @@ function About() {
         <ProductCard />
         <IonCard>
           <IonCardHeader>
+            <IonCardTitle>Common measurement examples</IonCardTitle>
             <IonCardSubtitle>
               You can create also your own measurements
             </IonCardSubtitle>
-            <IonCardTitle>Common measurement examples</IonCardTitle>
           </IonCardHeader>
-          <IonCardContent className="">
-            <IonList lines="none" className="ion-no-padding" style={{borderRadius: "10px"}}>
+          <IonCardContent className="ion-no-padding">
+            <IonList lines="none" className="">
               {possibleMeasurements.map((measurement) => (
                 <IonItem
                   className="ion-padding"

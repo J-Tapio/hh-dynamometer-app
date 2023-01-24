@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { useState } from "react";
 // Ionic
 import {
   IonSearchbar,
@@ -11,6 +11,8 @@ import {
   IonCardSubtitle,
   IonCardTitle,
 } from "@ionic/react";
+// Zustand
+import useStore from "../store";
 //============================================================================//
 const exampleParticipants = [
   "Davis",
@@ -20,7 +22,14 @@ const exampleParticipants = [
   "Gordon",
 ];
 
+const exampleProfile = {
+  firstName: "John",
+  lastName: "Doe",
+  email: "example@example.com",
+};
+
 function ProfileSearch() {
+  let { setProfile } = useStore((state) => state);
   let [query, setQuery] = useState<string>("");
   let [results, setResults] = useState<string[]>(exampleParticipants);
 
@@ -41,24 +50,21 @@ function ProfileSearch() {
   return (
     <IonCard>
       <IonCardHeader>
-        <IonCardSubtitle>Profile Search</IonCardSubtitle>
+        <IonCardSubtitle>Search</IonCardSubtitle>
         <IonCardTitle>Search by name</IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
         <IonSearchbar
+          color={"light"}
           className="ion-no-padding"
           showCancelButton="focus"
           placeholder=""
           debounce={200}
           onIonChange={(ev) => handleChange(ev)}
         />
-        <IonList
-          lines="none"
-          className="ion-no-padding"
-          style={{ borderRadius: "10px" }}
-        >
+        <IonList className="ion-no-padding" style={{ borderRadius: "10px" }}>
           {results.map((result) => (
-            <IonItem key={result}>
+            <IonItem className="search__item" key={result} onClick={() => setProfile(exampleProfile)}>
               <IonText>{result}</IonText>
             </IonItem>
           ))}

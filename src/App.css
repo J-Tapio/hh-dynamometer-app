@@ -3,3 +3,20 @@
 * {
   font-family: 'Sofia Sans Condensed', sans-serif;
 }
+
+.search__item {
+  cursor: 'pointer';
+  transition: 'color 0.4s ease-in';
+}
+
+.search__item:hover {
+  color: '#786dfd';
+}
+
+.mvcard__title {
+  font-size: '1.4rem';
+}
+
+.mvcard__p {
+  font-size: '1.2rem';
+}

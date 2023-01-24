@@ -10,28 +10,49 @@ import {
   IonItem,
   IonLabel,
   IonList,
-  IonText,
 } from "@ionic/react";
-// Ionic Icons
+// IonIcons
 import { informationCircle } from "ionicons/icons";
 //============================================================================//
 
-function MeasurementRecord() {
+const exampleDates = [
+  "1.1.2022",
+  "3.2.2022",
+  "5.5.2022",
+  "6.7.2022",
+  "11.11.2022",
+];
+
+type MeasurementRecordProps = {
+  measurementDate: string;
+  setSelectedDate: React.Dispatch<React.SetStateAction<string | null>>;
+};
+
+function MeasurementRecord({
+  measurementDate,
+  setSelectedDate,
+}: MeasurementRecordProps) {
   return (
     <IonItem className="">
-      <IonLabel className="ion-padding-vertical">
-        <IonText className="">Measurement Date</IonText>
-      </IonLabel>
-      <IonButton slot="end" color="tertiary">
-        <IonIcon icon={informationCircle} size="" />
+      <h3>{measurementDate}</h3>
+      <IonButton
+        slot="end"
+        color="tertiary"
+        onClick={() => setSelectedDate(measurementDate)}
+      >
+        <IonIcon icon={informationCircle} />
       </IonButton>
     </IonItem>
   );
 }
 
-let exampleRecords = Array.apply(null, Array(10));
+//----------------------------------------------------------------------------//
 
-function Profile() {
+type ProfileProps = {
+  setSelectedDate: React.Dispatch<React.SetStateAction<string | null>>;
+};
+
+function Profile({ setSelectedDate }: ProfileProps) {
   return (
     <IonCard color="" className="">
       <IonCardHeader>
@@ -44,15 +65,19 @@ function Profile() {
           <h6>+331231231</h6>
         </IonCardSubtitle>
       </IonCardHeader>
-      <IonCardContent className="" style={{ background: "" }}>
-        <IonList style={{ borderRadius: "10px" }}>
+      <IonCardContent className="ion-no-padding">
+        <IonList lines="full">
           <IonItem className="">
             <IonLabel className="ion-padding-vertical">
               Measurement Records
             </IonLabel>
           </IonItem>
-          {exampleRecords.map((item, index) => (
-            <MeasurementRecord key={index} />
+          {exampleDates.map((item, index) => (
+            <MeasurementRecord
+              key={index}
+              measurementDate={item}
+              setSelectedDate={setSelectedDate}
+            />
           ))}
         </IonList>
       </IonCardContent>

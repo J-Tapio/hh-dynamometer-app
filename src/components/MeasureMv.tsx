@@ -7,6 +7,8 @@ import {
   IonCol,
   IonRow,
   IonSpinner,
+  IonCard,
+  IonCardContent,
 } from "@ionic/react";
 // BLE
 import { BLE } from "@awesome-cordova-plugins/ble";
@@ -39,13 +41,26 @@ function MeasureMv({ setPlotData, setPlotMeasured }: MeasureMvProps) {
             let val = new Float32Array(data).at(0) as number;
             setWeight(val.toFixed(2)); // String
             //setPlotData((prevArr) => [...prevArr, val.toFixed(2)]);
-            setPlotData((prevPlotData) => [
-              ...prevPlotData,
-              { ms: measurementTime, mv: val.toFixed(2) },
-            ]);
-            setMeasurementTime((prevVal) => prevVal + 200);
+            setPlotData((prevPlotData) => {
+              if (prevPlotData.length < 1) {
+                return [
+                  ...prevPlotData,
+                  { ms: 0, mv: "0" },
+                  { ms: measurementTime, mv: val.toFixed(2) },
+                ];
+              } else {
+                return [
+                  ...prevPlotData,
+                  { ms: measurementTime, mv: val.toFixed(2) },
+                ];
+              }
+            });
+            setMeasurementTime(
+              (prevMeasurementTime) => prevMeasurementTime + 200
+            );
           })
           .catch((err) => {
+            //TODO: Graceful error-out within UI
             console.error(err);
           });
       }
@@ -54,9 +69,12 @@ function MeasureMv({ setPlotData, setPlotMeasured }: MeasureMvProps) {
   );
 
   function sendCmd(address: string, startMeasure: boolean) {
-    let command = new Int8Array([startMeasure ? 1 : 0]).buffer;
+    let command: ArrayBufferLike = new Int8Array([startMeasure ? 1 : 0]).buffer;
     BLE.write(address, weightService, commandCharacteristic, command).catch(
       (err) => {
+        //TODO: Re-connect? Error usually 'service not found'.
+        setAddress(null);
+        setConnected(false);
         console.error(err);
       }
     );
@@ -76,6 +94,8 @@ function MeasureMv({ setPlotData, setPlotMeasured }: MeasureMvProps) {
       setStartMeasure(false);
       setPlotMeasured(true);
       setMeasurementTime(0);
+      setWeight("0");
+      //setPlotDate([])
     }
   };
 
@@ -135,10 +155,10 @@ function MeasureMv({ setPlotData, setPlotMeasured }: MeasureMvProps) {
     <Fragment>
       {!address && !connected && (
         <IonGrid fixed={true}>
-          <IonRow>
-            <IonCol size="6" className="ion-align-self-center">
+          <IonRow className="">
+            <IonCol size="6" push="0.5" className="">
               <IonText>
-                <h3>Connecting with device...</h3>
+                <h4>Connecting with device...</h4>
               </IonText>
             </IonCol>
             <IonCol size="4" className="ion-align-self-center">
@@ -149,47 +169,51 @@ function MeasureMv({ setPlotData, setPlotMeasured }: MeasureMvProps) {
       )}
       {address && connected && (
         <Fragment>
-          <IonGrid>
-            <IonRow>
-              <IonCol>
-                <IonText color="success">
-                  <h4>{"Millivoltage: " + weight}</h4>
-                </IonText>
-                <IonText>
-                  <h5>{"Device Address: " + address}</h5>
-                  <h5>{"Connected: " + connected}</h5>
-                  <h5>{"Measure: " + startMeasure}</h5>
-                </IonText>
-              </IonCol>
-            </IonRow>
-          </IonGrid>
-          <IonGrid fixed={true}>
-            <IonRow>
-              <IonCol size={"5"}>
-                <IonButton
-                  color="tertiary"
-                  //size="large"
-                  disabled={address && connected ? false : true}
-                  style={{ width: "100%" }}
-                  onClick={handleStart}
-                >
-                  Start
-                </IonButton>
-              </IonCol>
-              <IonCol></IonCol>
-              <IonCol size={"5"}>
-                <IonButton
-                  color="danger"
-                  //size="large"
-                  disabled={address && connected ? false : true}
-                  style={{ width: "100%" }}
-                  onClick={handleStop}
-                >
-                  Stop
-                </IonButton>
-              </IonCol>
-            </IonRow>
-          </IonGrid>
+          <IonCard>
+            <IonCardContent>
+              <IonGrid>
+                <IonRow>
+                  <IonCol>
+                    <IonText color="success">
+                      <p className="mvcard__result">
+                        {"Millivoltage: " + weight}
+                      </p>
+                    </IonText>
+                    <IonText>
+                      <p className="mvcard__p">
+                        {"Device Address: " + address}
+                      </p>
+                      <p className="mvcard__p">{"Connected: " + connected}</p>
+                      <p className="mvcard__p">{"Measure: " + startMeasure}</p>
+                    </IonText>
+                  </IonCol>
+                </IonRow>
+              </IonGrid>
+              <IonGrid fixed={true}>
+                <IonRow>
+                  <IonCol size={"5"}>
+                    <IonButton
+                      color="tertiary"
+                      style={{ width: "100%" }}
+                      onClick={handleStart}
+                    >
+                      Start
+                    </IonButton>
+                  </IonCol>
+                  <IonCol></IonCol>
+                  <IonCol size={"5"}>
+                    <IonButton
+                      color="danger"
+                      style={{ width: "100%" }}
+                      onClick={handleStop}
+                    >
+                      Stop
+                    </IonButton>
+                  </IonCol>
+                </IonRow>
+              </IonGrid>
+            </IonCardContent>
+          </IonCard>
         </Fragment>
       )}
     </Fragment>

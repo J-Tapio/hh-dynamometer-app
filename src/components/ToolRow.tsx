@@ -1,5 +1,7 @@
 import { IonFab, IonFabButton, IonFabList, IonIcon } from "@ionic/react";
 import { add, search, create } from "ionicons/icons";
+// Zustand
+import useStore from "../store";
 // Types
 import { RevealOptions } from "../types";
 //============================================================================//
@@ -9,9 +11,11 @@ type ToolrowProps = {
 };
 
 function ToolRow({ setReveal }: ToolrowProps) {
+  const {profile} = useStore((state) => state)
+
   return (
-    <IonFab slot="fixed" horizontal="center" vertical="bottom" className="ion-padding-bottom">
-      <IonFabButton>
+    <IonFab horizontal="center" vertical="bottom" className="ion-padding-bottom">
+      <IonFabButton onClick={() => setReveal(null)}>
         <IonIcon icon={add}></IonIcon>
       </IonFabButton>
       <IonFabList side="start">
@@ -20,10 +24,7 @@ function ToolRow({ setReveal }: ToolrowProps) {
         </IonFabButton>
       </IonFabList>
       <IonFabList side="end">
-        {/*  <IonFabButton color="secondary">
-          <IonIcon icon={globe}></IonIcon>
-        </IonFabButton> */}
-        <IonFabButton color="tertiary" onClick={() => setReveal("add")}>
+        <IonFabButton color="tertiary" onClick={() => setReveal("create")}>
           <IonIcon icon={create}></IonIcon>
         </IonFabButton>
       </IonFabList>
